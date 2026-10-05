@@ -1,0 +1,8 @@
+Title: A poem
+Slug: poem
+Date: 2026-09-27 00:00:00
+
+The first line of the poem
+The second line
+
+A blank line starts the next verse.

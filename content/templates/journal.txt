@@ -1,0 +1,5 @@
+Title: A plain journal entry
+Slug: journal
+Date: 2026-09-27 00:00:00
+
+What happened, in your own words.

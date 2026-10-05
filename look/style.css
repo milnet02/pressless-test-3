@@ -1,0 +1,34 @@
+/* Your site's look. Change anything here; Pressless publishes it as it is. */
+
+html { font-size: 112.5%; }
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.6;
+}
+a { color: #0b4fa8; text-decoration: underline; }
+a:focus-visible, button:focus-visible { outline: 3px solid #0b4fa8; outline-offset: 2px; }
+
+header.site, main, footer.site, .wrap {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+}
+header.site { border-bottom: 2px solid #1a1a1a; }
+.site-name { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: #1a1a1a; }
+nav.primary { margin-top: 0.5rem; }
+nav.primary a { margin-right: 1.25rem; }
+nav.primary a[aria-current="page"] { font-weight: bold; text-decoration: none; }
+footer.site { border-top: 2px solid #1a1a1a; margin-top: 2rem; font-size: 0.95rem; }
+
+h1, h2, h3 { line-height: 1.25; }
+img { max-width: 100%; height: auto; }
+
+/* The journal's pages, should you turn it on. */
+.post-meta, .eyebrow, .lead, .page-intro, .comments-note { color: #3a3a3a; }
+.post-list, .comment-list { list-style: none; padding: 0; }
+.post-list li, .comment { margin-bottom: 1.25rem; }
+.chip { display: inline-block; margin: 0 0.5rem 0.5rem 0; }
+.pager, .back { margin-top: 2rem; }

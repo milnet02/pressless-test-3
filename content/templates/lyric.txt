@@ -1,0 +1,13 @@
+Title: A lyric with verses
+Slug: lyric
+Date: 2026-09-27 00:00:00
+
+{muted}Verse 1{/}
+The first line of the verse
+The next line
+
+{muted}Chorus{/}
+The chorus, written once
+
+{muted}Verse 2{/}
+The second verse
