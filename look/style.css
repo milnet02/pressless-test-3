@@ -1,32 +1,53 @@
 /* Your site's look. Change anything here; Pressless publishes it as it is. */
 
-html { font-size: 112.5%; }
+html { font-size: 118.75%; }
 body {
   margin: 0;
-  background: #ffffff;
-  color: #1a1a1a;
+  background: #fffaf2;
+  color: #2b1d14;
+  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.65;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+a { color: #7c2a0b; text-decoration: underline; text-underline-offset: 0.15em; }
+a:focus-visible, button:focus-visible { outline: 3px solid #2b1d14; outline-offset: 3px; }
+
+header.site {
+  background: #9a3412;
+  color: #ffffff;
+  padding: 1.5rem max(1.25rem, calc((100% - 44rem) / 2));
+}
+header.site a { color: #ffffff; }
+header.site a:focus-visible { outline-color: #ffffff; }
+.site-name {
   font-family: Georgia, "Times New Roman", serif;
-  line-height: 1.6;
+  font-size: 1.9rem;
+  font-weight: bold;
+  text-decoration: none;
 }
-a { color: #0b4fa8; text-decoration: underline; }
-a:focus-visible, button:focus-visible { outline: 3px solid #0b4fa8; outline-offset: 2px; }
+.site-description { margin: 0.25rem 0 0; font-size: 1.05rem; }
+.site-description:empty { display: none; }
+nav.primary { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1rem; }
+nav.primary a { font-weight: 600; }
+nav.primary a[aria-current="page"] { text-decoration: none; border-bottom: 3px solid #ffffff; }
 
-header.site, main, footer.site, .wrap {
-  max-width: 42rem;
-  margin: 0 auto;
-  padding: 1rem 1.25rem;
+main, .wrap { flex: 1 0 auto; width: 100%; box-sizing: border-box; max-width: 46.5rem;
+  margin: 0 auto; padding: 2rem 1.25rem; }
+h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.25; color: #2b1d14; }
+h1 { font-size: 2.2rem; margin-top: 0.5rem; }
+img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+
+footer.site {
+  background: #f3e3cf;
+  padding: 1.25rem max(1.25rem, calc((100% - 44rem) / 2));
+  font-size: 0.95rem;
 }
-header.site { border-bottom: 2px solid #1a1a1a; }
-.site-name { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: #1a1a1a; }
-nav.primary { margin-top: 0.5rem; }
-nav.primary a { margin-right: 1.25rem; }
-nav.primary a[aria-current="page"] { font-weight: bold; text-decoration: none; }
-footer.site { border-top: 2px solid #1a1a1a; margin-top: 2rem; font-size: 0.95rem; }
-
-h1, h2, h3 { line-height: 1.25; }
-img { max-width: 100%; height: auto; }
+footer.site p { margin: 0; }
 
 /* The journal's pages, should you turn it on. */
+.prose { overflow-wrap: break-word; }
 .post-meta, .eyebrow, .lead, .page-intro, .comments-note { color: #3a3a3a; }
 .post-list, .comment-list { list-style: none; padding: 0; }
 .post-list li, .comment { margin-bottom: 1.25rem; }
