@@ -1,55 +1,65 @@
-/* Your site's look. Change anything here; Pressless publishes it as it is. */
+/* Your site's look, made by Pressless's Look screen. Change it there: a change made here by hand is replaced at the next save, with a copy kept in the bin. */
+:root { color-scheme: light dark; --paper: #fffaf2; --ink: #2b1d14; --soft: #3a3a3a; --link: #7c2a0b; --heading: #2b1d14; --band: #9a3412; --on-band: #ffffff; --band-soft: #ffffff; --accent: #ffffff; --foot: #f3e3cf; --on-foot: #2b1d14; --foot-link: #7c2a0b; --line: #f3e3cf; }
+@media (prefers-color-scheme: dark) { :root { --paper: #1a1410; --ink: #f5e9dc; --soft: #d4c4b2; --link: #ffb38a; --heading: #f5e9dc; --band: #6b230a; --on-band: #ffffff; --band-soft: #ffffff; --accent: #ffffff; --foot: #2b2019; --on-foot: #f5e9dc; --foot-link: #ffb38a; --line: #4a3a2e; } }
+:root { --body-font: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --heading-font: Georgia, "Times New Roman", serif;
+  --text-size: 118.75%; --width: 46.5rem; }
 
-html { font-size: 118.75%; }
+html { font-size: var(--text-size); }
 body {
   margin: 0;
-  background: #fffaf2;
-  color: #2b1d14;
-  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body-font);
   line-height: 1.65;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-a { color: #7c2a0b; text-decoration: underline; text-underline-offset: 0.15em; }
-a:focus-visible, button:focus-visible { outline: 3px solid #2b1d14; outline-offset: 3px; }
+a { color: var(--link); text-decoration: underline; text-underline-offset: 0.15em; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 
 header.site {
-  background: #9a3412;
-  color: #ffffff;
-  padding: 1.5rem max(1.25rem, calc((100% - 44rem) / 2));
+  background: var(--band);
+  color: var(--on-band);
+  padding: 1.5rem max(1.25rem, calc((100% - var(--width) + 2.5rem) / 2));
 }
-header.site a { color: #ffffff; }
-header.site a:focus-visible { outline-color: #ffffff; }
+header.site a { color: var(--on-band); }
+header.site a:focus-visible { outline-color: var(--on-band); }
 .site-name {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--heading-font);
   font-size: 1.9rem;
   font-weight: bold;
   text-decoration: none;
 }
-.site-description { margin: 0.25rem 0 0; font-size: 1.05rem; }
+.site-description { margin: 0.25rem 0 0; font-size: 1.05rem; color: var(--band-soft); }
 .site-description:empty { display: none; }
 nav.primary { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1rem; }
 nav.primary a { font-weight: 600; }
-nav.primary a[aria-current="page"] { text-decoration: none; border-bottom: 3px solid #ffffff; }
+nav.primary a[aria-current="page"] { text-decoration: none;
+  border-bottom: 3px solid var(--accent); }
 
-main, .wrap { flex: 1 0 auto; width: 100%; box-sizing: border-box; max-width: 46.5rem;
+main, .wrap { flex: 1 0 auto; width: 100%; box-sizing: border-box; max-width: var(--width);
   margin: 0 auto; padding: 2rem 1.25rem; }
-h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.25; color: #2b1d14; }
+h1, h2, h3 { font-family: var(--heading-font); line-height: 1.25;
+  color: var(--heading); }
 h1 { font-size: 2.2rem; margin-top: 0.5rem; }
 img { max-width: 100%; height: auto; border-radius: 0.5rem; }
 
 footer.site {
-  background: #f3e3cf;
-  padding: 1.25rem max(1.25rem, calc((100% - 44rem) / 2));
+  background: var(--foot);
+  color: var(--on-foot);
+  padding: 1.25rem max(1.25rem, calc((100% - var(--width) + 2.5rem) / 2));
   font-size: 0.95rem;
 }
 footer.site p { margin: 0; }
+footer.site a { color: var(--foot-link); }
 
 /* The journal's pages, should you turn it on. */
 .prose { overflow-wrap: break-word; }
-.post-meta, .eyebrow, .lead, .page-intro, .comments-note { color: #3a3a3a; }
+.post-meta, .eyebrow, .lead, .page-intro, .comments-note { color: var(--soft); }
 .post-list, .comment-list { list-style: none; padding: 0; }
 .post-list li, .comment { margin-bottom: 1.25rem; }
 .chip { display: inline-block; margin: 0 0.5rem 0.5rem 0; }
 .pager, .back { margin-top: 2rem; }
+/* Your own CSS, from the box at the bottom of the Look screen. */
