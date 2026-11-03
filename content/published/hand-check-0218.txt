@@ -3,3 +3,5 @@ Slug: hand-check-0218
 Date: 2026-11-03 20:38:41
 
 Taken in from GitHub, then published from Pressless on 2026-11-03.
+
+Then moved to its own domain name.
