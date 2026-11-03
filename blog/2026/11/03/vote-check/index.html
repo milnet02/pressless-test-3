@@ -7,8 +7,17 @@
 <meta name="description" content="A test entry for the Like and Dislike buttons.">
 <link rel="stylesheet" href="../../../../../look/style.css">
 <script type="module">
-const CONFIG = {"key": "AIzaSyAHlLXHDcV2buj_LKUiAergsKWxM9eH1kQ", "project": "pl-votes-trial-0211", "app": "1:76226916299:web:9cb78b0eb28778756e904e", "recaptcha": null};
-const guarded = async (sent) => sent;
+const CONFIG = {"key": "AIzaSyAHlLXHDcV2buj_LKUiAergsKWxM9eH1kQ", "project": "pl-votes-trial-0211", "app": "1:76226916299:web:9cb78b0eb28778756e904e", "recaptcha": "6Lc_4A0uAAAAAMxseDT_VMN35yLfonQqg_4qBQ7T"};
+
+const {initializeApp} = await import("https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js");
+const {initializeAppCheck, ReCaptchaEnterpriseProvider, getToken} =
+  await import("https://www.gstatic.com/firebasejs/13.1.0/firebase-app-check.js");
+const appCheck = initializeAppCheck(
+  initializeApp({apiKey: CONFIG.key, projectId: CONFIG.project, appId: CONFIG.app}),
+  {provider: new ReCaptchaEnterpriseProvider(CONFIG.recaptcha),
+    isTokenAutoRefreshEnabled: true});
+const guarded = async (sent) =>
+  ({...sent, "X-Firebase-AppCheck": (await getToken(appCheck)).token});
 
 const box = document.querySelector(".votes[data-vote]");
 const buttons = [...box.querySelectorAll("button.vote")];
