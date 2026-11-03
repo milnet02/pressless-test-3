@@ -2,4 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://milnet02.github.io/pressless-test-3/</loc></url>
   <url><loc>https://milnet02.github.io/pressless-test-3/pages/about.html</loc></url>
+  <url><loc>https://milnet02.github.io/pressless-test-3/pages/privacy.html</loc></url>
+  <url><loc>https://milnet02.github.io/pressless-test-3/blog/index.html</loc></url>
+  <url><loc>https://milnet02.github.io/pressless-test-3/blog/archive/index.html</loc></url>
+  <url><loc>https://milnet02.github.io/pressless-test-3/blog/2026/11/03/vote-check/index.html</loc><lastmod>2026-11-03</lastmod></url>
 </urlset>

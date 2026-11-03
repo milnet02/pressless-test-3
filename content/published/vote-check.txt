@@ -1,0 +1,5 @@
+Title: Vote check
+Slug: vote-check
+Date: 2026-11-03 10:40:36
+
+A test entry for the Like and Dislike buttons.

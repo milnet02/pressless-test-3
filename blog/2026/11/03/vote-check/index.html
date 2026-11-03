@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vote check</title>
+<meta name="description" content="A test entry for the Like and Dislike buttons.">
+<link rel="stylesheet" href="../../../../../look/style.css">
+<script type="module">
+const CONFIG = {"key": "AIzaSyAHlLXHDcV2buj_LKUiAergsKWxM9eH1kQ", "project": "pl-votes-trial-0211", "app": "1:76226916299:web:9cb78b0eb28778756e904e", "recaptcha": null};
+const guarded = async (sent) => sent;
+
+const box = document.querySelector(".votes[data-vote]");
+const buttons = [...box.querySelectorAll("button.vote")];
+const KEY = box.dataset.vote;
+const NOTE = "pressless-votes";
+const GATE = `?key=${CONFIG.key}`;
+const ENTRY = `https://firestore.googleapis.com/v1/projects/${CONFIG.project}` +
+  `/databases/(default)/documents/entries/${encodeURIComponent(KEY)}`;
+const JSON_TYPE = {"Content-Type": "application/json"};
+const counts = {};
+
+function worked(answer) {
+  if (!answer.ok) throw new Error(`answered ${answer.status}`);
+  return answer;
+}
+
+async function firestore(path, method, body, token) {
+  const sent = await guarded(token ? {...JSON_TYPE, Authorization: `Bearer ${token}`} : JSON_TYPE);
+  return worked(await fetch(ENTRY + path + GATE, {method, headers: sent,
+                                                  body: body && JSON.stringify(body)}));
+}
+
+async function counted(value) {
+  const answer = await firestore(":runAggregationQuery", "POST", {
+    structuredAggregationQuery: {
+      structuredQuery: {
+        from: [{collectionId: "votes"}],
+        where: {fieldFilter: {field: {fieldPath: "value"}, op: "EQUAL",
+                              value: {integerValue: String(value)}}},
+      },
+      aggregations: [{alias: "n", count: {}}],
+    },
+  });
+  const [row] = await answer.json();
+  return Number(row.result.aggregateFields.n.integerValue);
+}
+
+function canRemember() {
+  try {
+    localStorage.setItem(NOTE + "-probe", "1");
+    localStorage.removeItem(NOTE + "-probe");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function readNote() {
+  try {
+    const held = JSON.parse(localStorage.getItem(NOTE));
+    if (typeof held.refresh === "string" && typeof held.votes === "object" && held.votes) {
+      return held;
+    }
+  } catch { /* no note yet, or one that cannot be read: a first vote */ }
+  return {refresh: null, votes: {}};
+}
+
+function writeNote(note) {
+  localStorage.setItem(NOTE, JSON.stringify(note));
+}
+
+// One exchange per press. Only a refused token signs up anew: an exchange with
+// no answer is a failed press, or a passing outage would double a visitor.
+async function session(note) {
+  if (note.refresh) {
+    const answer = await fetch(`https://securetoken.googleapis.com/v1/token${GATE}`, {
+      method: "POST",
+      headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      body: new URLSearchParams({grant_type: "refresh_token", refresh_token: note.refresh}),
+    });
+    if (answer.ok) {
+      const held = await answer.json();
+      note.refresh = held.refresh_token;
+      writeNote(note);
+      return {uid: held.user_id, token: held.id_token};
+    }
+    if (answer.status !== 400) throw new Error(`answered ${answer.status}`);
+  }
+  const made = await worked(await fetch(
+    `https://identitytoolkit.googleapis.com/v1/accounts:signUp${GATE}`,
+    {method: "POST", headers: JSON_TYPE, body: JSON.stringify({returnSecureToken: true})},
+  )).json();
+  note.refresh = made.refreshToken;
+  note.votes = {};
+  writeNote(note);
+  return {uid: made.localId, token: made.idToken};
+}
+
+function show(chosen) {
+  for (const button of buttons) {
+    const value = Number(button.dataset.value);
+    button.querySelector(".vote-count").textContent = String(counts[value]);
+    button.setAttribute("aria-pressed", String(value === chosen));
+  }
+}
+
+function enable(on) {
+  for (const button of buttons) button.disabled = !on;
+}
+
+async function press(button) {
+  enable(false);
+  try {
+    const note = readNote();
+    const {uid, token} = await session(note);
+    const value = Number(button.dataset.value);
+    const held = note.votes[KEY];
+    const path = `/votes/${encodeURIComponent(uid)}`;
+    if (held === value) {
+      await firestore(path, "DELETE", null, token);
+      delete note.votes[KEY];
+      counts[value] -= 1;
+    } else {
+      await firestore(path, "PATCH",
+                      {fields: {value: {integerValue: String(value)}}}, token);
+      if (held !== undefined) counts[held] -= 1;
+      note.votes[KEY] = value;
+      counts[value] += 1;
+    }
+    writeNote(note);
+    show(note.votes[KEY]);
+  } catch { /* § 4.3: as it was before the press */ }
+  enable(true);
+}
+
+async function start() {
+  await Promise.all(buttons.map(async (button) => {
+    counts[button.dataset.value] = await counted(button.dataset.value);
+  }));
+  if (!canRemember()) {
+    show(undefined);    // § 6: a vote could not be remembered, so none is offered
+    return;
+  }
+  show(readNote().votes[KEY]);
+  box.addEventListener("click", (event) => {
+    const button = event.target.closest("button.vote");
+    if (button && !button.disabled) press(button);
+  });
+  enable(true);
+}
+
+start().catch(() => { /* § 4.3: disabled, with no numbers */ });
+</script>
+</head>
+<body>
+
+<header class="site">
+  <a class="site-name" href="../../../../../index.html"></a>
+  <p class="site-description"></p>
+  <nav class="primary" aria-label="Primary">
+    <a href="../../../../../index.html" data-nav="Home">Home</a>
+    <a href="../../../../../pages/about.html" data-nav="about">About</a>
+  </nav>
+</header>
+
+  <main class="wrap">
+
+    <article class="post">
+      <p class="post-meta"><time datetime="2026-11-03">3 November 2026</time> </p>
+      <h1>Vote check</h1>
+      <div class="post-body prose">
+<p>A test entry for the Like and Dislike buttons.</p>
+      </div>
+      <p class="post-tags"></p>
+<style>.votes{display:flex;flex-wrap:wrap;gap:.75em;margin:1.5em 0}.votes .vote{font:inherit;color:inherit;background:none;border:2px solid currentColor;border-radius:.4em;padding:.5em 1em;cursor:pointer}.votes .vote:disabled{cursor:default;opacity:.7}.votes .vote[aria-pressed="true"]{text-decoration:underline;box-shadow:inset 0 0 0 2px currentColor}.votes .vote-count{display:inline-block;min-width:4ch;text-align:left}</style>
+<div class="votes" data-vote="2026-11-03-vote-check">
+  <button type="button" class="vote" data-value="1" aria-pressed="false" disabled>Like <span class="vote-count"></span></button>
+  <button type="button" class="vote" data-value="-1" aria-pressed="false" disabled>Dislike <span class="vote-count"></span></button>
+</div>
+    </article>
+
+    <p class="back"><a href="../../../../../blog/index.html">← All journal entries</a></p>
+  </main>
+
+<footer class="site">
+  <p>&copy; 2026 </p>
+<a href="../../../../../pages/privacy.html">Privacy</a>
+</footer>
+
+</body>
+</html>
