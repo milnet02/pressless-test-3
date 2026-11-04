@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://scratch-a.antsprojectshub.co.za/sitemap.xml
+Sitemap: https://milnet02.github.io/pressless-test-3/sitemap.xml
