@@ -1,9 +1,0 @@
-Title: JPEG XL check
-Slug: jpeg-xl-check
-Date: 2026-11-10 12:45:59
-
-{photo: still.jxl}
-
-{photo: oriented.jxl}
-
-{photo: animation.jxl}
