@@ -1,0 +1,4 @@
+Title: First entry on the box
+Slug: first-entry-on-the-box
+Date: 2026-11-13 08:30:30
+
