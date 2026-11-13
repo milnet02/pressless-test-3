@@ -1,0 +1,5 @@
+Title: Claude Desktop check
+Slug: claude-desktop-check
+Date: 2026-11-13 08:54:17
+
+Written by Claude Desktop on the Windows box.
