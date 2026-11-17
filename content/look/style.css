@@ -54,6 +54,7 @@ footer.site {
 }
 footer.site p { margin: 0; }
 footer.site a { color: var(--foot-link); }
+footer.site a:focus-visible { outline-color: var(--foot-link); }
 
 /* The journal's pages, should you turn it on. */
 .prose { overflow-wrap: break-word; }

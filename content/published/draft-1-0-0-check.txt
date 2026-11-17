@@ -1,7 +1,0 @@
-Title: draft-1-0-0-check
-Slug: draft-1-0-0-check
-Date: 2026-11-16 17:31:53
-
-This is the draft-1-0-0-check paragraph.
-
-Second paragraph, published with the Publish button.
