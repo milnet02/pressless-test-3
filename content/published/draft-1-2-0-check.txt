@@ -1,0 +1,5 @@
+Title: draft-1-2-0-check
+Slug: draft-1-2-0-check
+Date: 2026-11-23 09:08:33
+
+A short check entry written by the 1.2.0 draft round on the Windows box.
