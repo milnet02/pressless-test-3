@@ -1,0 +1,7 @@
+Title: An entry around one photograph
+Slug: photograph
+Date: 2026-09-27 00:00:00
+
+{photo: your-photograph.jpg | A caption for it}
+
+A few lines about the photograph.
