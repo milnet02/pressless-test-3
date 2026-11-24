@@ -1,0 +1,7 @@
+Title: draft-1-2-2-check
+Slug: draft-1-2-2-check
+Date: 2026-11-24 14:50:23
+
+What happened, in your own words.
+
+A short note from the 1.2.2 draft round.
